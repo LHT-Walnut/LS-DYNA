@@ -1,0 +1,231 @@
+$---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
+$ LS-DYNA(970) DECK WRITTEN BY : eta/FEMB-PC version 28.0
+$ TEMPLATE #:  
+$  ENGINEER : Lu H.T.
+$   PROJECT : 
+$     UNITS : 
+$      TIME :  
+$      DATE :  
+$---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
+*KEYWORD
+$---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
+*TITLE
+LS-DYNA USER INPUT
+$---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
+$                                                                              $
+$                                 CONTROL CARD                                 $
+$                                                                              $
+$---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
+*CONTROL_TIMESTEP  定义时间步长控制
+$   DTINIT    TSSFAC      ISDO    TSLIMT     DT2MS      LCTM     ERODE     MS1ST
+       0.0       0.0         0       0.0   0.00010                              
+$   DT2MSF
+          
+*CONTROL_TERMINATION  定义总的计算时间
+$   ENDTIM    ENDCYC     DTMIN    ENDENG    ENDMAS
+       2.0         0       0.0       0.0       0.0
+*CONTROL_SOLUTION 定义求解类型控制；热力偶合分析
+$     SOLN
+         2
+*CONTROL_CONTACT    接触控制关键字
+$   SLSFAC    RWPNAL    ISLCHK    SHLTHK    PENOPT    THKCHG     ORIEN    ENMASS
+      0.10                   2         0         1         1         1         0
+$   USRSTR    USRFRC     NSBCS    INTERM     XPENE     SSTHK      ECDT   TIEDPRJ
+         0         0        10         0       4.0         0         0         0
+$    SFRIC     DFRIC       EDC       VFC        TH     TH_SF    PEN_SF
+       0.0       0.0       0.0       0.0       0.0       0.0       0.0
+$   IGNORE    FRCENG   SKIPRWG    OUTSEG   SPOTSTP   SPOTDEL
+         0         0         0         0         0         0
+*CONTROL_THERMAL_SOLVER  定义热求解控制，
+$    ATYPE     PTYPE    SOLVER     CGTOL       GPT    EQHEAT     FWORK       SBC
+         1         0         1   0.00010         0       1.0      0.60       0.0
+*CONTROL_THERMAL_TIMESTEP  定义热求解中时间步长
+$       TS       TIP       ITS      TMIN      TMAX     DTEMP      TSCP
+         0       1.0     0.010       0.0       0.0       1.0      0.50
+*CONTROL_HOURGLASS  定义沙漏能量控制
+$      IHQ        QH
+         4      0.10
+$---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
+$                                                                              $
+$                          DATABASE CONTROL FOR ASCII                          $
+$                                                                              $
+$---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
+*DATABASE_GLSTAT 文本输出总信息
+$       DT    BINARY
+     0.010         1
+*DATABASE_MATSUM  文本输出材料信息
+$       DT    BINARY
+     0.010         1
+*DATABASE_TPRINT  
+$       DT    BINARY
+     0.010         1
+$---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
+$                                                                              $
+$                         DATABASE CONTROL FOR BINARY                          $
+$                                                                              $
+$---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
+*DATABASE_BINARY_D3PLOT  计算结素时间
+$  DT/CYCL      LCDT      BEAM     NPLTC
+     0.020                              
+$---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
+$                                                                              $
+$                            DATABASE EXTENT CARDS                             $
+$                                                                              $
+$---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
+*DATABASE_EXTENT_BINARY  输出间隔
+$^
+$    NEIPH     NEIPS    MAXINT    STRFLG    SIGFLG    EPSFLG    RLTFLG    ENGFLG
+         0         0         3         1         1         1         1         1
+$   CMPFLG    IEVERP    BEAMIP     DCOMP      SHGE     STSSZ    N3THDT
+         0         0         4         0         0         0          
+$  NINTSLD
+         1
+$---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
+$                                                                              $
+$                            DATABASE FORMAT CARDS                             $
+$                                                                              $
+$---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
+*DATABASE_FORMAT
+$    IFORM   IBINARY
+         0          
+$---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
+$                                                                              $
+$                                  PART CARDS                                  $
+$                                                                              $
+$---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
+*PART
+$HEADING
+PART          1 FOR MAT         1 AND ELEM TYPE         1
+$      PID     SECID       MID     EOSID      HGID      GRAV    ADPOPT      TMID
+         1         1         1         0         0         0         0         1
+*PART
+$HEADING
+PART          2 FOR MAT         2 AND ELEM TYPE         1
+$      PID     SECID       MID     EOSID      HGID      GRAV    ADPOPT      TMID
+         2         1         2         0         0         0         0         1
+*PART
+$HEADING
+PART          3 FOR MAT         3 AND ELEM TYPE         1
+$      PID     SECID       MID     EOSID      HGID      GRAV    ADPOPT      TMID
+         3         1         3         0         0         0         0         1
+$---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
+$                                                                              $
+$                                SECTION CARDS                                 $
+$                                                                              $
+$---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
+*SECTION_SHELL    定义单元类型
+$^SEC0001
+$    SECID    ELFORM      SHRF       NIP     PROPT   QR/IRID     ICOMP     SETYP
+         1        15       1.0         1       0.0       0.0         0         1
+$       T1        T2        T3        T4      NLOC     MAREA
+    0.0010    0.0010    0.0010    0.0010         0          
+$---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
+$                                                                              $
+$                                MATERIAL CARDS                                $
+$                                                                              $
+$---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
+*MAT_RIGID    定义材料
+$^MAT0001
+$      MID        RO         E        PR         N    COUPLE         M     ALIAS
+         1    7830.02.0000E+11      0.30       0.0       0.0       0.0          
+$      CMO      CON1      CON2
+       1.0       1.07         
+$LCO_OR_A1        A2        A3        V1        V2        V3
+                                                            
+*MAT_RIGID
+$^MAT0003
+$      MID        RO         E        PR         N    COUPLE         M     ALIAS
+         3    7830.02.0000E+11      0.30       0.0       0.0       0.0          
+$      CMO      CON1      CON2
+       1.0       4.07         
+$LCO_OR_A1        A2        A3        V1        V2        V3
+                                                            
+*MAT_PIECEWISE_LINEAR_PLASTICITY  定义材料属性为分段线性塑性材料
+$^M-4
+$      MID        RO         E        PR      SIGY      ETAN      FAIL      TDEL
+         2    7830.02.0000E+11      0.30     300.0       0.01.0000E+21       0.0
+$        C         P      LCSS      LCSR        VP
+       0.0       0.0       0.0       0.0       0.0
+$     EPS1      EPS2      EPS3      EPS4      EPS5      EPS6      EPS7      EPS8
+       0.0     0.010     0.020     0.050      0.10      0.20      0.40       1.0
+$      ES1       ES2       ES3       ES4       ES5       ES6       ES7       ES8
+2.5000E+082.8000E+083.0000E+083.5000E+084.2000E+085.0000E+085.2000E+085.4000E+08
+$---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
+$                                                                              $
+$                            THERMAL MATERIAL CARDS                            $
+$                                                                              $
+$---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
+*MAT_THERMAL_ISOTROPIC     定义有限元模型的材料类型的热学属性为各向同性热材料
+$^THERMAL-1
+$     TMID       TRO     TGRLC    TGMULT
+         1    7830.0       0.0          
+$       HC        TC
+     700.0      70.0
+$---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
+$                                                                              $
+$                                NODE SET CARDS                                $
+$                                                                              $
+$---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
+*SET_NODE_LIST  定义3个节点组
+$^NODE_SET 1
+$      SID       DA1       DA2       DA3       DA4
+         1       0.0       0.0       0.0       0.0
+$     NID1      NID2      NID3      NID4      NID5      NID6      NID7      NID8
+         1        29        42        43        44        45        46        47
+        48        49        50        51        52        53        54       211
+       220       223       224       225       226       235       263       276
+       277       278       279       280       281       282       283       284
+       285       286       287       288       222       221       215          
+*SET_NODE_LIST
+$^NODE_SET 2
+$      SID       DA1       DA2       DA3       DA4
+         2       0.0       0.0       0.0       0.0
+$     NID1      NID2      NID3      NID4      NID5      NID6      NID7      NID8
+         1         3        55        54         4        68         5        81
+         6        94         7       107         8       120         9       133
+$---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
+$                                                                              $
+$                          INITIAL TEMPERATURE CARDS                           $
+$                                                                              $
+$---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
+*INITIAL_TEMPERATURE_SET  初试温度， 
+$^TEMPERATURE CARD 1
+$     NSID      TEMP
+         2      20.0
+*INITIAL_TEMPERATURE_SET
+$^TEMPERATURE CARD 2
+$     NSID      TEMP
+         3    1200.0
+$---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
+$                                                                              $
+$                                CONTACT CARDS                                 $
+$                                                                              $
+$---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
+*CONTACT_2D_AUTOMATIC_SURFACE_TO_SURFACE_THERMAL  接触关键字，自动面对面热接触
+$^CONTACT1
+$    PSIDS主面节点集PSIDM从面节点集SFACT罚函数系数因子FREQ寻找频率FS静态摩擦系数FD动态摩擦系数DC计算摩擦力指数MEMBS
+         1         2       1.0        50       0.0       0.0       0.0         6
+$   TBIRTH接触产生时间TDEATH 接触结素时间SOS       SOM       NDS       NDM   IPF/COF      INIT特别进程
+       0.01.0000E+20       1.0       1.0         0         0         0         0
+$       CF热传导FRAD固体表面辐射因子HTC     GCRIT      GMAX   CD_FACT
+   10000.0   10000.0   10000.0    0.0010    0.0020       1.0
+*CONTACT_2D_AUTOMATIC_SURFACE_TO_SURFACE_THERMAL
+$^CONTACT2
+$    PSIDS     PSIDM     SFACT      FREQ        FS        FD        DC     MEMBS
+         3         2       1.0        50       0.0       0.0       0.0         6
+$   TBIRTH    TDEATH       SOS       SOM       NDS       NDM   IPF/COF      INIT
+       0.01.0000E+20       1.0       1.0         0         0         0         0
+$       CF      FRAD       HTC     GCRIT      GMAX   CD_FACT
+   10000.0   10000.0   10000.0    0.0010    0.0020       1.0
+$---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
+$                                                                              $
+$                               LOAD CURVE CARDS                               $
+$                                                                              $
+$---+----1----+----2----+----3----+----4----+----5----+----6----+----7----+----8
+*DEFINE_CURVE   载荷曲线
+$^LCUR_1
+$     LCID      SIDR       SFA       SFO      OFFA      OFFO    DATTYP
+         1         0       1.0       1.0       0.0       0.0         0
+$                 A1                  O1
+                 0.0                 0.0
+                 2.0              -0.030
